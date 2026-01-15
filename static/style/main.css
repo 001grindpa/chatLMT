@@ -1,0 +1,50 @@
+*, html, body {
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+}
+:root {
+    --small-size: 10px;
+    --medium-size: 15px;
+    --big-size: 25px;
+}
+.divide {
+    height: 1px;
+    width: 100vw;
+    background-color: lightgray;
+}
+.sideNote {
+    background-color: lightgreen;
+    color: gray;
+    font-size: var(--small-size);
+    font-weight: bold;
+    width: fit-content;
+    padding: 5px 10px;
+}
+#search {
+    text-align: center;
+    padding: 5px;
+    width: fit-content;
+    margin: auto;
+    outline: 1px solid gray;
+    margin-top: 3px;
+}
+#search input {
+    padding: 5px;
+    outline: none;
+    border: none;
+}
+#search input:focus {
+    outline: 1px dashed green;
+}
+#search button {
+    padding: 5px 15px;
+    background-color: lightgreen;
+    color: gray;
+    border: none;
+    cursor: pointer;
+}
+.response {
+    text-align: center;
+    margin-top: 10px;
+}

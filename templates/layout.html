@@ -1,0 +1,13 @@
+<html lang="en">
+    <head>
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+        <meta property="og:title" content="ChatLMT">
+        <meta property="og:description" content="ChatLMT makes exploring web3 easier for you.">
+        <title>ChatLMT</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style/main.css') }}">
+        <script src="{{ url_for('static', filename='scripts/main.js') }}"></script>
+    </head>
+    <body id="{{ page }}">
+        {% block body %}{% endblock %}
+    </body>
+</html>

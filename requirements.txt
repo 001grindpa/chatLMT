@@ -1,0 +1,11 @@
+langchain
+langgraph
+langchain_groq
+mcp
+langchain_tavily
+langchain_mcp_adapters
+httpx
+flask[async]
+flask_session
+watchdog
+cs50
