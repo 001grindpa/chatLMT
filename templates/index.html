@@ -2,23 +2,27 @@
 
 {% block body %}
 
-    <main>
-        <div class="sideNote">Another Masterpiece</div>
-        <div class="chatCont">
-            <div class="chatArea">
-                <div class="botText">Hello, welcome</div>
-                <div class="humanText">Hi</div>
+    <div>
+        <header>
+            <div class="sideNote">Another Masterpiece</div>
+        </header>
+        <main>
+            <div class="chatCont">
+                <div class="chatArea">
+                    <div class="botText">Hello, welcome</div>
+                    <div class="humanText">Hi</div>
+                </div>
+                <div class="divide"></div>
+                <form id="search" action="/">
+                    <input name="q" type="search" placeholder="ask something..." autofocus autocomplete="off">
+                    <button type="submit">Enter</button>
+                </form>
+                <div class="response">
+                    <h5>chatLMT</h5>
+                    <div class="content">...</div>
+                </div>
             </div>
-            <div class="divide"></div>
-            <form id="search" action="/">
-                <input name="q" type="search" placeholder="ask something..." autofocus autocomplete="off">
-                <button type="submit">Enter</button>
-            </form>
-            <div class="response">
-                <h5>chatLMT</h5>
-                <div class="content">...</div>
-            </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
 {% endblock %}

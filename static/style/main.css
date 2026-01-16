@@ -4,9 +4,19 @@
     font-family: sans-serif;
 }
 :root {
-    --small-size: 10px;
+    --smallest-size: 10px;
+    --small-size: 12px;
     --medium-size: 15px;
     --big-size: 25px;
+    --bg-dark: rgb(30, 30, 30);
+    --brand-color: rgb(205, 113, 0);
+    --brand-color-light: rgb(255, 136, 0);;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    justify-content: space-between;
 }
 .divide {
     height: 1px;
@@ -16,11 +26,226 @@
 .sideNote {
     background-color: lightgreen;
     color: gray;
-    font-size: var(--small-size);
+    font-size: var(--smallest-size);
     font-weight: bold;
     width: fit-content;
     padding: 5px 10px;
 }
+
+/* signup styling */
+/* #signup {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+} */
+.menuBar {
+    background-color: var(--bg-dark);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 10px;
+}
+.menuBar .left .title div:nth-child(1) {
+    color: white;
+    font-weight: bolder;
+}
+.menuBar .left .title div:nth-child(2) {
+    font-size: small;
+    font-weight: bold;
+    color: var(--brand-color);
+}
+.menuBar .left {
+    display: flex;
+    align-items: center;
+}
+.menuBar .left img {
+    width: 60px;
+    height: 45px;
+}
+.menuBar .right img {
+    width: 20px;
+    height: 20px;
+}
+.menuBar .left .hambugger img {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+.menuBar .profile {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    padding: 5px 15px;
+    gap: 5px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.menuBar .profile:hover {
+    background-color: lightgray;
+}
+.menuBar .profile .status {
+    height: 10px;
+    width: 10px;
+    border-radius: 100%;
+    background-color: red;
+}
+.statusText {
+    position: absolute;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    width: 90px;
+    height: fit-content;
+    background-color: rgba(255, 255, 255, 0.664);
+    font-size: small;
+    right: 90px;
+    top: 10px;
+    visibility: hidden;
+}
+.statusText.show {
+    animation: show_status 0.2s forwards;
+}
+@keyframes show_status {
+    to {
+        visibility: visible;
+    }
+}
+.signup {
+    background-color: var(--bg-dark);
+    width: fit-content;
+    margin: auto;
+    margin-top: 10vh;
+    padding: 20px 40px;
+    color: white;
+    text-align: center;
+    line-height: 1.3;
+    border-radius: 10px;
+    outline: 0.1px solid gray;
+    opacity: 0.9;
+}
+.signup .warn {
+    font-size: small;
+    color: crimson;
+}
+.signup h5 {
+    margin-bottom: 20px;
+    background-color: var(--brand-color);
+}
+.signup form {
+    position: relative;
+}
+.signup form .field {
+    margin-bottom: 10px;
+    text-align: left;
+}
+.signup form .field .line {
+    height: 0.2px;
+    width: 100%;
+    background-color: gray;
+    margin: auto;
+}
+.signup form .field .matching {
+    text-align: center;
+    color: blue;
+    background-color: white;
+    width: fit-content;
+    margin: auto;
+}
+.signup form .field .strength {
+    text-align: center;
+    color: black;
+    background-color: white;
+    width: fit-content;
+    margin: auto;
+}
+.signup form .field .must {
+    font-weight: lighter;
+    font-size: var(--smallest-size);
+    color: lightgreen;
+    width: 220px;
+}
+.signup form .field img {
+    position: absolute;
+    background-color: white;
+    cursor: pointer;
+}
+.signup form button {
+    padding: 10px 25px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background: var(--brand-color-light);
+    color: white;
+    font-weight: bold;
+    transition: 0.2s;
+}
+.signup form button:hover {
+    background-color: var(--brand-color);
+}
+.signup form div div {
+    font-weight: bold;
+    font-size: small;
+}
+.signup form div input {
+    width: 15rem;
+    padding: 8px;
+    border-radius: 5px;
+    background: inherit;
+    border: none;
+    color: white;
+    font-size: small;
+}
+.signup form div input:focus {
+    outline: 1px solid var(--brand-color);
+}
+.signup form .terms {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.signup form .terms input {
+    width: fit-content;
+}
+.signup form .terms input:focus {
+    outline: none;
+}
+.signup .txt {
+    font-size: var(--small-size);
+    font-weight: lighter;
+}
+.signup .txt a {
+    color: lightgreen;
+}
+footer {
+    text-align: center;
+    font-size: smaller;
+    line-height: 1.7;
+    margin-top: 8rem;
+    color: white;
+}
+footer div:nth-child(3) {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+} 
+footer img {
+    width: 40px;
+    height: 40px;
+    transition: 0.2s;
+}
+footer .lmt {
+    background-color: black;
+    border-radius: 10px;
+}
+footer .x:hover {
+    background-color: lightgreen;
+    border-radius: 10px;
+}
+
+/* index styling */
 #search {
     text-align: center;
     padding: 5px;

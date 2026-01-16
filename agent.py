@@ -8,14 +8,20 @@ from langgraph.prebuilt import ToolNode, tools_condition
 from IPython.display import Image, display
 from typing import TypedDict
 from typing_extensions import Annotated
-from langgraph.checkpoint.memory import MemorySaver
+# from langgraph.checkpoint.memory import MemorySaver
+from langgraph.checkpoint.sqlite.aio import AsyncSqliteSaver
+import aiosqlite
 import asyncio
 from langchain_core.messages import SystemMessage
 from langchain_mcp_adapters.client import MultiServerMCPClient
+from pathlib import Path
+
+db_path = Path("/home/grindpa/code/repos/chatLMT/chat_history.db")
 
 load_dotenv()
 os.environ["GROQ_API_KEY"] = os.getenv("GROQ_API_KEY")
 # coingecko_key = os.getenv("COINGECKO_API_KEY")
+
 
 # let's build a client
 async def mcp_tools():
@@ -44,10 +50,9 @@ graph_builder = StateGraph(State)
 tavily = TavilySearch(max_results=2)
 all_tools = tools + [tavily]
 
-llm = ChatGroq(model="openai/gpt-oss-120b")
-llm = llm.bind_tools(all_tools)
+llm = ChatGroq(model="openai/gpt-oss-120b").bind_tools(all_tools)
 
-memory = MemorySaver()
+# memory = MemorySaver()
 
 def bot(state: State):
     state["messages"] = [
@@ -74,7 +79,8 @@ def bot(state: State):
         ),
         *state["messages"]
     ]
-    return {"messages": [llm.invoke(state["messages"])]}
+    response = llm.invoke(state["messages"])
+    return {"messages": [response]}
 
 graph_builder.add_node("bot_node", bot)
 graph_builder.add_node("tools", ToolNode(all_tools))
@@ -86,14 +92,18 @@ graph_builder.add_conditional_edges(
 )
 graph_builder.add_edge("tools", "bot_node")
 
-graph = graph_builder.compile(checkpointer=memory)
-
 # display(Image(graph.get_graph().draw_mermaid_png()))
 
 async def main(q: str, username: str):
-    config = {"configurable": {"thread_id": username}}
-    r = await graph.ainvoke({"messages": [{"role": "user", "content": q}]}, config=config)
-    return r["messages"][-1].content
+    # compile to graph inside main()
+    async with aiosqlite.connect("chat_history.db") as conn:
+        memory = AsyncSqliteSaver(conn)
+
+        graph = graph_builder.compile(checkpointer=memory)
+
+        config = {"configurable": {"thread_id": username}}
+        r = await graph.ainvoke({"messages": [{"role": "user", "content": q}]}, config=config)
+        return r["messages"][-1].content
 
 # print(asyncio.run(main("bitcoin price", "grindpa")))
-# print(tools)
+# print(f"using db: {db_path}")

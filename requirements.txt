@@ -9,3 +9,4 @@ flask[async]
 flask_session
 watchdog
 cs50
+langgraph-checkpoint-sqlite
