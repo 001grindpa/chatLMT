@@ -6,6 +6,7 @@ import httpx
 import json
 from datetime import timedelta
 from agent import main
+from random_functions import check_password
 
 db = SQL("sqlite:///lmt.db")
 
@@ -51,6 +52,19 @@ def signup():
         return redirect("/login")
     return render_template("signup.html", page="signup")
 
+@app.route("/check_password")
+def password_checker():
+    password = request.args.get("q")
+    result = check_password(password)
+    if result == "valid password":
+        session["valid"] = True
+        return jsonify({"msg": result})
+    else:
+        if session.get("valid"):
+            session["valid"] == None
+        return jsonify({"msg": result})
+            
+        
 
 # if __name__ == "__main__":
 #     app.run(port=5000, debug=True, use_reloader=True, reloader_type="watchdog")

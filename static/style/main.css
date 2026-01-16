@@ -159,6 +159,13 @@ body {
     width: fit-content;
     margin: auto;
 }
+.signup form .field .check_username {
+    text-align: center;
+    color: black;
+    background-color: white;
+    width: fit-content;
+    margin: auto;
+}
 .signup form .field .must {
     font-weight: lighter;
     font-size: var(--smallest-size);
