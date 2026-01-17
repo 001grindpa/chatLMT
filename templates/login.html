@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <div class="statusText">you're currently not logged in</div>
+    <header>
+        <div class="menuBar">
+            <div class="left">
+                <img class="logo" src="{{ url_for('static', filename='images/lmt_no_tagline.png') }}" alt="LMT_logo">
+                <div class="title">
+                    <div>ChatLMT</div>
+                    <div>Community Assistant</div>
+                </div>
+            </div>
+            <div class="right">
+                <div class="profile">
+                    <img src="{{ url_for('static', filename='images/profile-user.png') }}" alt="profile_img">
+                    <div class="status"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="signup">
+            <h3>Sign Up</h3>
+            <h5 class="txt">Welcome Back!</h5>
+            <form action="/login" method="post">
+                <div class="field">
+                    <div>Username</div>
+                    <input name="username" type="text" autocomplete="off" placeholder="Enter username">
+                    <div class="line"></div>
+                    <div class="check_username"></div>
+                </div>
+                <div class="field">
+                    <div>Password</div>
+                    <input class="password" name="password" type="password" autocomplete="off" placeholder="Create a password"><span><img src="{{ url_for('static', filename='images/closedeye.png') }}" alt="closed"></span>
+                    <div class="line"></div>
+                    <div class="strength"></div>
+                </div>
+                <button type="submit">Sign Up</button>
+            </form>
+            <div class="warn"></div>
+            <div class="txt"><div>Don't have an account?</div><a href="/signup">Sign Up</a></div>
+        </div>
+    </main>
+    <footer>
+        <div>Like Minded Troop(LMT) Affilliated Project</div>
+        <div>© 2026 Like Minded Troop</div>
+        <div>
+            <img class="lmt" src="/static/images/lmt_no_tagline.png" alt="LMT logo">
+            <a href="https://www.x.com/lmt_dao"><img class="x" src="/static/images/x.png" alt="X logo"></a>
+        </div>
+        <div class="sideNote">Another Masterpiece</div>
+    </footer>
+    
+
+{% endblock %}

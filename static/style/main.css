@@ -281,6 +281,10 @@ footer .x:hover {
     background-color: var(--brand-color);
 }
 
+/* styling for login */
+#login footer {
+    margin-top: 25rem;
+}
 
 /* index styling */
 #search {

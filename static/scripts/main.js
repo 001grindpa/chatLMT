@@ -119,6 +119,39 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
     }
+    else if (document.body.id == "login") {
+        const eye = document.querySelector(".signup form .field img");
+        const passwordInput = document.querySelector(".signup form .field .password");
+        const profileBtn = document.querySelector(".right .profile");
+        const profile = document.querySelector(".statusText");
+        const main = document.querySelector("main");
+
+        eye.addEventListener("click", () => {
+            if (passwordInput.type == "password") {
+                eye.src = "/static/images/openeye.png";
+                passwordInput.type = "text";
+            } else {
+                eye.src = "/static/images/closedeye.png";
+                passwordInput.type = "password";
+            }
+        })
+
+        main.addEventListener("click", () => {
+            if (profile.classList.contains("show")) {
+                profile.classList.remove("show");
+            }
+        })
+
+        profileBtn.addEventListener("click", () => {
+            if (profile.classList.contains("show")) {
+                profile.classList.remove("show");
+            }
+            else {
+                profile.classList.add("show");
+            }
+        })
+
+    }
     else if (document.body.id == "index") {
         const body = document.querySelector("body");
         const searchForm = body.querySelector("#search");

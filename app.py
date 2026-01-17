@@ -69,6 +69,10 @@ def password_checker():
     else:
         session["validity"] = False
         return jsonify({"msg": result, "session": session.get("validity")})
+    
+@app.route("/login")
+def login():
+    return render_template("login.html", page="login")
             
         
 
