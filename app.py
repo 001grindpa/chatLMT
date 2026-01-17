@@ -32,11 +32,14 @@ async def index():
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     if request.method == "POST":
-        username = request.json["username"]
-        password = request.json["password"]
-        first_name = request.json["first_name"]
-        surname = request.json["surname"]
-        e_mail = request.json["e_mail"]
+        username = request.form.get("username")
+        password = request.form.get("password")
+        first_name = request.form.get("first_name")
+        surname = request.form.get("surname")
+        e_mail = request.form.get("e_mail", None)
+
+        if session.get("validity") == False:
+            return redirect("/signup_error")
 
         userData = db.execute("SELECT * FROM userData WHERE username = ?", username)
         for data in userData:
@@ -52,17 +55,20 @@ def signup():
         return redirect("/login")
     return render_template("signup.html", page="signup")
 
+@app.route("/signup_error")
+def signup_error():
+    return render_template("signupError.html", page="signup_error")
+
 @app.route("/check_password")
 def password_checker():
     password = request.args.get("q")
     result = check_password(password)
     if result == "valid password":
-        session["valid"] = True
-        return jsonify({"msg": result})
+        session["validity"] = True
+        return jsonify({"msg": result, "session": session.get("validity")})
     else:
-        if session.get("valid"):
-            session["valid"] == None
-        return jsonify({"msg": result})
+        session["validity"] = False
+        return jsonify({"msg": result, "session": session.get("validity")})
             
         
 

@@ -252,6 +252,36 @@ footer .x:hover {
     border-radius: 10px;
 }
 
+/* sign up error */
+#signup_error .signup {
+    margin-top: 15rem;
+    width: 19rem;
+}
+#signup_error .signup div:nth-child(3) {
+    font-size: small;
+    background-color: white;
+    color: red;
+    margin-top: 10px;
+    text-align: left;
+}
+#signup_error .signup button {
+    margin-top: 20px;
+    padding: 10px 25px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background: var(--brand-color-light);
+    color: white;
+    font-weight: bold;
+    transition: 0.2s;
+}
+#signup_error .signup button:hover {
+    background-color: var(--brand-color);
+}
+
+
 /* index styling */
 #search {
     text-align: center;
