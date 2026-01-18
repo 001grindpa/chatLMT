@@ -19,6 +19,16 @@ Session(app)
 def static_session():
     session.permanent = True
 
+@app.context_processor
+def globals():
+    userData = db.execute("SELECT * FROM userData WHERE username = ?", session.get("username"))
+    for data in userData:
+        if data.get("email"):
+            email = data.get("email")
+        else:
+            email = ""
+    return dict(email=email)
+
 @app.route("/", methods=["GET", "POST"])
 async def index():
     if not session.get("username") and not session.get("password"):

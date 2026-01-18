@@ -343,6 +343,9 @@ footer .x:hover {
 }
 
 /* styling for login */
+#login .signup form .txt {
+    text-align: left;
+}
 main #toLogin {
     display: none;
 }
@@ -351,31 +354,104 @@ main #toLogin {
 }
 
 /* index styling */
-#search {
-    text-align: center;
-    padding: 5px;
-    width: fit-content;
+#index header {
+    position: fixed;
+    width: 100vw;
+}
+#index .chatCont {
+    /* outline: 1px solid white; */
     margin: auto;
+    margin-top: 300px;
+    width: 90vw;
+    overflow: hidden;
+    height: 40px;
+    padding: 3px;
+}
+#index .chatCont.expand {
+    transition: 0.3s;
+    animation: expand 2.5s forwards;
+}
+@keyframes expand {
+    to {
+        margin-top: 100px;
+        height: 710px;
+    }
+}
+#index .chatArea {
+    outline: 1px solid red;
+    margin: 5px;
+    padding: 10px;
+    height: 40rem;
+    overflow-y: auto;
+}
+#index .chatArea .humanText {
+    /* outline: 1px solid var(--brand-color); */
+    width: 300px;
+    margin-left: auto;
+}
+#index .chatArea .humanText .Hcontent {
+    margin-left: auto;
+    width: fit-content;
+    font-size: small;
+    color: white;
+    font-weight: bold;
+    padding: 8px;
+    border-radius: 10px;
+    background-color: var(--bg-dark);
+}
+#index .response {
+    width: 300px;
+}
+#index .response .content {
+    outline: 1px solid var(--brand-color-light);
+    width: fit-content;
+    font-size: small;
+    color: white;
+    font-weight: bold;
+    padding: 8px;
+    border-radius: 10px;
+    background-color: var(--brand-color);
+    margin-top: 10px;
+}
+#index .right .profile .status {
+    background-color: green;
+}
+#search {
+    display: flex;
+    align-items: center;
     outline: 1px solid gray;
+    margin: auto;
     margin-top: 3px;
+    overflow: hidden;
+    width: 100%;
+    border-radius: 5px;
 }
 #search input {
-    padding: 5px;
+    padding: 12px 5px;
     outline: none;
     border: none;
-}
-#search input:focus {
-    outline: 1px dashed green;
+    width: 100%;
+    outline: none;
+    background-color: var(--bg-dark);
+    color: lightgray;
 }
 #search button {
     padding: 5px 15px;
-    background-color: lightgreen;
+    background-color: var(--brand-color-light);
     color: gray;
     border: none;
     cursor: pointer;
+    transition: 0.2s;
 }
-.response {
-    text-align: center;
-    margin-top: 10px;
-    color: white;
+#search button:hover {
+    background-color: var(--brand-color);
+}
+#search img {
+    width: 30px;
+    height: 30px;
+}
+#index footer {
+    position: absolute;
+    top: 46rem;
+    width: 100vw
 }
