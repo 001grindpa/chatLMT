@@ -2,6 +2,18 @@
 
 {% block body %}
 
+    <div class="successCont">
+        <div class="signSuccess">
+        <div class="imgs">
+            <img class="" src="{{ url_for('static', filename='gif/Success.gif') }}" alt="confirmation_sign">
+            <img class="" src="{{ url_for('static', filename='images/checkmark.png') }}" alt="confirm_static">
+        </div>
+        <div>redirecting to login...</div>
+        <form action="/login">
+            <input type="submit">
+        </form>
+    </div>
+    </div>
     <div class="statusText">you're currently not logged in</div>
     <header>
         <div class="menuBar">

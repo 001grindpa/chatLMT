@@ -13,6 +13,43 @@ document.addEventListener("DOMContentLoaded", () => {
         const allInputs = body.querySelectorAll(".signup form div input");
         const form = body.querySelector(".signup form");
         const formBtn = body.querySelector(".signup form button");
+        const redirectToLoginTxt = body.querySelector(".signSuccess .imgs + div");
+        const successCont = body.querySelector(".successCont");
+        const redirectToLogin = body.querySelector(".successCont form input");
+        const successGif = body.querySelector(".signSuccess .imgs img:nth-child(1)");
+        const successImg = body.querySelector(".signSuccess .imgs img:nth-child(2)");
+
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            let formdata = Object.fromEntries(new FormData(form));
+
+            try {
+                let r = await fetch("/signup", {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(formdata)
+                })
+                let d = await r.json();
+                console.log(d.msg);
+                if (d.msg == "successful sign in") {
+                    body.style.overflowY = "hidden";
+                    successCont.style.display = "block";
+                    successGif.classList.add("hide");
+                    successImg.classList.add("show");
+
+                    setTimeout(() => redirectToLoginTxt.style.display = "block", 3000);
+                    setTimeout(() => redirectToLogin.click(), 4500);
+                } else if (d.msg == "This account already exists, try loging in.") {
+                    return alert(`${d.msg}`)
+                }
+            }
+            catch(error) {
+                console.log("Unexpected error: " + error)
+            }
+        })
 
         main.addEventListener("click", () => {
             if (profile.classList.contains("show")) {
@@ -125,6 +162,35 @@ document.addEventListener("DOMContentLoaded", () => {
         const profileBtn = document.querySelector(".right .profile");
         const profile = document.querySelector(".statusText");
         const main = document.querySelector("main");
+        const form = document.querySelector(".signup form");
+        const toLoginBtn = document.querySelector("main #toLogin button");
+        
+        // form.style.color = "red";
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            let formdata = Object.fromEntries(new FormData(form));
+
+            try {
+                let r = await fetch("/login", {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(formdata)
+                })
+                let d = await r.json();
+                console.log(d.msg);
+                if (d.msg == "This account does not exist, please check again or sign up.") {
+                    return alert(`${d.msg}`);
+                } else if (d.msg == "login") {
+                    return toLoginBtn.click();
+                }
+            }
+            catch(error) {
+                console.log("Unexpected error: " + error);
+            }
+        })
 
         eye.addEventListener("click", () => {
             if (passwordInput.type == "password") {

@@ -38,6 +38,67 @@ body {
     flex-direction: column;
     height: fit-content;
 } */
+ .successCont {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.448);
+    backdrop-filter: blur(3px);
+    display: none;
+ }
+ .successCont form {
+    display: none;
+ }
+ .signSuccess {
+    background-color: var(--bg-dark);
+    margin: auto;
+    margin-top: 300px;
+    outline: 0.5px solid gray;
+    padding: 10px;
+    border-radius: 10px;
+    width: 200px;
+    text-align: center;
+    color: white;
+ }
+.signSuccess .imgs img:nth-child(2) {
+    position: absolute;
+    right: 65px;
+    top: 5px;
+    width: 70px;
+    height: 70px;
+    visibility: hidden;
+}
+.signSuccess .imgs img:nth-child(2).show {
+    animation: show 0.1s 2s forwards;
+}
+@keyframes show {
+    to {
+        visibility: visible;
+    }
+}
+.signSuccess .imgs img:nth-child(1) {
+    width: 80px;
+    height: 80px;
+}
+.signSuccess .imgs img:nth-child(1).hide {
+    animation: hide 0.1s 2s forwards;
+}
+@keyframes hide {
+    to {
+        visibility: hidden;
+    }
+}
+.signSuccess .imgs {
+    position: relative;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.signSuccess .imgs + div {
+    display: none;
+}
 .menuBar {
     background-color: var(--bg-dark);
     display: flex;
@@ -282,6 +343,9 @@ footer .x:hover {
 }
 
 /* styling for login */
+main #toLogin {
+    display: none;
+}
 #login footer {
     margin-top: 25rem;
 }
@@ -313,4 +377,5 @@ footer .x:hover {
 .response {
     text-align: center;
     margin-top: 10px;
+    color: white;
 }

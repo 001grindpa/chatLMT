@@ -25,18 +25,18 @@ async def index():
         return redirect("/signup")
     if request.method == "POST":
         q = request.json["q"]
-        r = await main(q, "grindpa")
+        r = await main(q, session.get("username"))
         return jsonify({"msg": r})
     return render_template("index.html", page="index")
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     if request.method == "POST":
-        username = request.form.get("username")
-        password = request.form.get("password")
-        first_name = request.form.get("first_name")
-        surname = request.form.get("surname")
-        e_mail = request.form.get("e_mail", None)
+        username = request.get_json().get("username")
+        password = request.get_json().get("password")
+        first_name = request.get_json().get("first_name")
+        surname = request.get_json().get("surname")
+        e_mail = request.get_json().get("e_mail")
 
         if session.get("validity") == False:
             return redirect("/signup_error")
@@ -46,13 +46,13 @@ def signup():
             if data["username"] == username and data["password"] == password:
                 return jsonify({"msg": "This account already exists, try loging in."})
             
-        session["username"] = username
-        session["password"] = password
+        # session["username"] = username
+        # session["password"] = password
         db.execute(
             "INSERT INTO userData(name, surname, username, password, e_mail, role) VALUES(?, ?, ?, ?, ?, ?)",
             first_name, surname, username, password, e_mail, "user"
             )
-        return redirect("/login")
+        return jsonify({"msg": "successful sign in"})
     return render_template("signup.html", page="signup")
 
 @app.route("/signup_error")
@@ -70,9 +70,28 @@ def password_checker():
         session["validity"] = False
         return jsonify({"msg": result, "session": session.get("validity")})
     
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
+    if request.method == "POST":
+        username = request.get_json().get("username")
+        password = request.get_json().get("password")
+
+        userData = db.execute("SELECT * FROM userData WHERE username = ?", username)
+        for data in userData:
+            if data["username"] == username and data["password"] == password:
+                session["username"] = username
+                session["password"] = password
+                # return redirect("/")
+                return jsonify({"msg": "login"})
+        return jsonify({"msg": "This account does not exist, please check again or sign up."})
     return render_template("login.html", page="login")
+
+@app.route("/logout", methods=["GET", "POST"])
+def logout():
+    session["username"] = None
+    session["password"] = None
+    return redirect("/login")
+
             
         
 
