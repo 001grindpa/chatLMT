@@ -3,7 +3,7 @@
 {% block body %}
 
         <div class="statusText">
-            <div>{{ email }}</div>
+            <div><a href="/profile">Profile</a></div>
             <form action="/logout" method="get">
                 <button type="submit">Logout</button>
             </form>
@@ -27,20 +27,32 @@
             </div>
         </header>
         <main>
-            <div class="chatCont expand">
-                <div class="chatArea">
-                    <div class="humanText">
-                        <div class="Hcontent">Lorem error.</div>
-                    </div>
-                    <div class="response">
-                        <div class="content"></div>
+            <div class="chat_grid">
+                <div class="sideBar">
+                    <form action="/search">
+                        <input name="search" type="search" autocomplete="off" placeholder="Search">
+                        <img src="{{ url_for('static', filename='images/white-microscope.png') }}" alt="clear">
+                    </form>
+                    <div>
+                        <img src="{{ url_for('static', filename='images/clear.png') }}" alt="clear">
+                        <div>Clear chat</div>
                     </div>
                 </div>
-                <!-- <div class="divide"></div> -->
-                <form id="search" action="/">
-                    <input name="q" type="search" placeholder="say something..." autofocus autocomplete="off">
-                    <button type="submit"><img src="{{ url_for('static', filename='images/white_paper_plane.png') }}" alt=""></button>
-                </form>
+                <div class="chatCont"> <!--expand class-->
+                    <div class="chatArea">
+                        <div class="humanText">
+                            <div class="Hcontent">Lorem error.</div>
+                        </div>
+                        <div class="response">
+                            <div class="content"></div>
+                        </div>
+                    </div>
+                    <!-- <div class="divide"></div> -->
+                    <form id="search" action="/">
+                        <input name="q" type="search" placeholder="Ask ChatLMT" autofocus autocomplete="off">
+                        <button type="submit"><img src="{{ url_for('static', filename='images/white_paper_plane.png') }}" alt=""></button>
+                    </form>
+                </div>
             </div>
         </main>
         <footer>

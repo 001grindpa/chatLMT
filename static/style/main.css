@@ -10,7 +10,10 @@
     --big-size: 25px;
     --bg-dark: rgb(30, 30, 30);
     --brand-color: rgb(205, 113, 0);
-    --brand-color-light: rgb(255, 136, 0);;
+    --brand-color-faded: rgba(205, 113, 0, 0.419);
+    --brand-color-light: rgb(255, 136, 0);
+    --shift-left: 15px;
+    --shift-right: 15px;
 }
 body {
     display: flex;
@@ -105,6 +108,7 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 2px 10px;
+    outline: 0.5px solid gray;
 }
 .menuBar .left .title div:nth-child(1) {
     color: white;
@@ -132,6 +136,13 @@ body {
     height: 50px;
     cursor: pointer;
 }
+.menuBar .left .hambugger {
+    border-radius: 5px;
+    transition: 0.25s;
+}
+.menuBar .left .hambugger:hover {
+    background-color: rgba(0, 0, 0, 0.446);
+}
 .menuBar .profile {
     background-color: white;
     display: flex;
@@ -152,7 +163,7 @@ body {
     background-color: red;
 }
 .statusText {
-    position: absolute;
+    position: fixed;
     padding: 10px;
     border-radius: 10px;
     text-align: center;
@@ -354,22 +365,52 @@ main #toLogin {
 }
 
 /* index styling */
-#index header {
+
+#index .statusText {
+    /* visibility: visible; */
+    z-index: 5;
+}
+#index .statusText div {
+    font-weight: bolder;
+    margin-bottom: 20px;
+    padding: 5px 15px;
+    border-radius: 20px;
+}
+#index .statusText div:hover {
+    background-color: var(--brand-color-faded);
+    color: white;
+}
+#index .statusText div a {
+    text-decoration: none;
+    color: inherit;
+}
+#index .statusText button {
+    padding: 5px 15px;
+    border-radius: 20px;
+    background-color: var(--bg-dark);
+    color: white;
+    cursor: pointer;
+}
+#index .statusText button:hover {
+    background-color: black;
+}
+#index .menuBar {
     position: fixed;
     width: 100vw;
+    z-index: 2;
 }
 #index .chatCont {
     /* outline: 1px solid white; */
     margin: auto;
     margin-top: 300px;
-    width: 90vw;
+    width: 90%;
     overflow: hidden;
     height: 40px;
     padding: 3px;
 }
 #index .chatCont.expand {
     transition: 0.3s;
-    animation: expand 2.5s forwards;
+    animation: expand 1.5s forwards;
 }
 @keyframes expand {
     to {
@@ -378,7 +419,7 @@ main #toLogin {
     }
 }
 #index .chatArea {
-    outline: 1px solid red;
+    /* outline: 1px solid red; */
     margin: 5px;
     padding: 10px;
     height: 40rem;
@@ -406,15 +447,84 @@ main #toLogin {
     outline: 1px solid var(--brand-color-light);
     width: fit-content;
     font-size: small;
-    color: white;
+    color: var(--bg-dark);
     font-weight: bold;
     padding: 8px;
     border-radius: 10px;
     background-color: var(--brand-color);
     margin-top: 10px;
+    line-height: 1.5;
 }
 #index .right .profile .status {
     background-color: green;
+}
+.chat_grid {
+    display: grid;
+    grid-template-areas: 
+    "first"
+    "second";
+}
+.chat_grid .sideBar {
+    grid-area: first;
+    padding-top: 100px;
+    /* display: none; */
+    position: fixed;
+    background-color: var(--bg-dark);
+    height: 50rem;
+    outline: 0.4px solid gray;
+    line-height: 4;
+    left: -100%;
+    /* z-index: -1; */
+    transition: 0.35s;
+}
+.chat_grid .sideBar img {
+    width: 35px;
+    height: 35px;
+}
+.chat_grid .chatCont {
+    grid-area: second;
+}
+@media(min-width: 770px) {
+    .chat_grid {
+        grid-template-areas: "first second";
+        grid-template-columns: 255px;
+    }
+    .chat_grid .sideBar {
+        position: static;
+    }
+    #index header .hambugger {
+        display: none;
+    }
+}
+.chat_grid .sideBar form + div {
+    margin-left: var(--shift-left);
+    margin-right: var(--shift-right);
+    color: white;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: 0.25s;
+}
+.chat_grid .sideBar form + div:hover {
+    background-color: rgba(255, 255, 255, 0.247);
+}
+.chat_grid .sideBar form {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    margin-left: var(--shift-left);
+    margin-bottom: 10px;
+}
+.chat_grid .sideBar form input {
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    font-weight: bold;
+}
+.chat_grid .sideBar form input:focus {
+    box-shadow: 0 0 6px 8px var(--brand-color-light);
 }
 #search {
     display: flex;
@@ -450,8 +560,14 @@ main #toLogin {
     width: 30px;
     height: 30px;
 }
+#index footer img {
+    margin-bottom: 20px;
+}
 #index footer {
     position: absolute;
     top: 46rem;
-    width: 100vw
+    width: 100vw;
+    /* z-index: -2; */
+    background-color: var(--bg-dark);
+    outline: 0.5px solid gray;
 }

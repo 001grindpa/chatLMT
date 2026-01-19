@@ -21,12 +21,15 @@ def static_session():
 
 @app.context_processor
 def globals():
-    userData = db.execute("SELECT * FROM userData WHERE username = ?", session.get("username"))
-    for data in userData:
-        if data.get("email"):
-            email = data.get("email")
+    if session.get("username"):
+        userData = db.execute("SELECT * FROM userData WHERE username = ?", session.get("username"))
+        for data in userData:
+            if data.get("e_mail"):
+                email = data.get("e_mail")
         else:
-            email = ""
+            email = "None"
+    else:
+            email = "None"
     return dict(email=email)
 
 @app.route("/", methods=["GET", "POST"])
@@ -35,7 +38,7 @@ async def index():
         return redirect("/signup")
     if request.method == "POST":
         q = request.json["q"]
-        r = await main(q, session.get("username"))
+        r = await main(f"username: {session.get('username')}\nQuery: {q}", session.get("username"))
         return jsonify({"msg": r})
     return render_template("index.html", page="index")
 

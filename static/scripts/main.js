@@ -220,9 +220,50 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     else if (document.body.id == "index") {
         const body = document.querySelector("body");
+        const chatCont = document.querySelector(".chatCont");
         const searchForm = body.querySelector("#search");
         const searchInput = body.querySelector("#search input");
         const llm_msg = body.querySelector(".response .content");
+        const profileBtn = body.querySelector(".right .profile");
+        const profile = body.querySelector(".statusText");
+        const main = body.querySelector("main");
+        const sideBar = body.querySelector(".chat_grid .sideBar");
+        const hamburger = body.querySelector(".menuBar .left .hambugger");
+
+        hamburger.addEventListener("click", () => {
+            if (sideBar.style.left == "-100%") {
+                sideBar.style.left = "0%";
+            }
+            else {
+                sideBar.style.left = "-100%"
+            }
+        }) 
+
+        if (localStorage.getItem("expanded") == "true") {
+            chatCont.classList.add("expand");
+        }
+
+        searchInput.addEventListener("click", () => {
+            if (!localStorage.getItem("expanded")) {
+                chatCont.classList.add("expand");
+                localStorage.setItem("expanded", true);
+            }
+        })
+
+        main.addEventListener("click", () => {
+            if (profile.classList.contains("show")) {
+                profile.classList.remove("show");
+            }
+        })
+
+        profileBtn.addEventListener("click", () => {
+            if (profile.classList.contains("show")) {
+                profile.classList.remove("show");
+            }
+            else {
+                profile.classList.add("show");
+            }
+        })
 
         searchForm.addEventListener("submit", async (e) => {
             e.preventDefault();
