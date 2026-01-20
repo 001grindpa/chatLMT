@@ -152,6 +152,7 @@ body {
     border-radius: 20px;
     cursor: pointer;
     transition: 0.2s;
+    margin-right: 10px;
 }
 .menuBar .profile:hover {
     background-color: lightgray;
@@ -396,7 +397,7 @@ main #toLogin {
 }
 #index .menuBar {
     position: fixed;
-    width: 100vw;
+    width: 100%;
     z-index: 2;
 }
 #index .chatCont {
@@ -418,6 +419,9 @@ main #toLogin {
         height: 710px;
     }
 }
+#index .chatArea::-webkit-scrollbar {
+    display: none;
+}
 #index .chatArea {
     /* outline: 1px solid red; */
     margin: 5px;
@@ -429,6 +433,7 @@ main #toLogin {
     /* outline: 1px solid var(--brand-color); */
     width: 300px;
     margin-left: auto;
+    margin-bottom: 10px;
 }
 #index .chatArea .humanText .Hcontent {
     margin-left: auto;
@@ -442,6 +447,11 @@ main #toLogin {
 }
 #index .response {
     width: 300px;
+    margin-bottom: 10px;
+}
+#index .response img {
+    width: 60px;
+    height: 60px;
 }
 #index .response .content {
     outline: 1px solid var(--brand-color-light);
@@ -452,7 +462,6 @@ main #toLogin {
     padding: 8px;
     border-radius: 10px;
     background-color: var(--brand-color);
-    margin-top: 10px;
     line-height: 1.5;
 }
 #index .right .profile .status {
@@ -467,14 +476,12 @@ main #toLogin {
 .chat_grid .sideBar {
     grid-area: first;
     padding-top: 100px;
-    /* display: none; */
     position: fixed;
     background-color: var(--bg-dark);
     height: 50rem;
     outline: 0.4px solid gray;
     line-height: 4;
     left: -100%;
-    /* z-index: -1; */
     transition: 0.35s;
 }
 .chat_grid .sideBar img {

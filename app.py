@@ -9,6 +9,7 @@ from agent import main
 from random_functions import check_password
 
 db = SQL("sqlite:///lmt.db")
+db_2 = SQL("sqlite:///chat_history.db")
 
 app = Flask(__name__)
 app.config["SESSION_TYPE"] = "filesystem"
@@ -37,8 +38,11 @@ async def index():
     if not session.get("username") and not session.get("password"):
         return redirect("/signup")
     if request.method == "POST":
+        chat = {}
         q = request.json["q"]
         r = await main(f"username: {session.get('username')}\nQuery: {q}", session.get("username"))
+        chat[q] = r
+        db.execute("INSERT INTO convos(username, chat) VALUES(?, ?)", session.get("username"), json.dumps(chat))
         return jsonify({"msg": r})
     return render_template("index.html", page="index")
 
@@ -105,8 +109,21 @@ def logout():
     session["password"] = None
     return redirect("/login")
 
-            
+@app.route("/get_chat")
+def chat_history():
+    chat = db.execute("SELECT chat FROM convos WHERE username = ?", session.get("username"))
+    return jsonify({"msg": chat})
+
+@app.route("/clear_memory")
+def clear_memory():
+    db_2.execute("DELETE FROM checkpoints WHERE thread_id = ?", session.get("username"))
+    db_2.execute("DELETE FROM writes WHERE thread_id = ?", session.get("username"))
+    return jsonify({"msg": "chatLMT memory successfully cleared"})
         
+@app.route("/clear_chat")
+def clear_chat():
+    db.execute("DELETE FROM convos WHERE username = ?", session.get("username"))
+    return jsonify({"msg": "UI chat text successfully cleared"})
 
 # if __name__ == "__main__":
 #     app.run(port=5000, debug=True, use_reloader=True, reloader_type="watchdog")

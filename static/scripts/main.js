@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     if (document.body.id === "signup") {
         const body = document.querySelector("body");
         const profileBtn = body.querySelector(".right .profile");
@@ -221,14 +221,99 @@ document.addEventListener("DOMContentLoaded", () => {
     else if (document.body.id == "index") {
         const body = document.querySelector("body");
         const chatCont = document.querySelector(".chatCont");
+        const chatArea = body.querySelector(".chatArea");
         const searchForm = body.querySelector("#search");
         const searchInput = body.querySelector("#search input");
-        const llm_msg = body.querySelector(".response .content");
         const profileBtn = body.querySelector(".right .profile");
         const profile = body.querySelector(".statusText");
         const main = body.querySelector("main");
         const sideBar = body.querySelector(".chat_grid .sideBar");
         const hamburger = body.querySelector(".menuBar .left .hambugger");
+        const clearChat = body.querySelector(".sideBar form + div");
+
+        // aauto retrieve current chat history
+        async function retrieve_chat() {
+            try {
+                let r = await fetch("/get_chat");
+                let d = await r.json();
+                // console.log(d.msg)
+                for (let i of d.msg) { 
+                    for (let j in JSON.parse(i.chat)) {
+                        // human text rendering
+                        let hContent = document.createElement("div");
+                        let humanTextCont = document.createElement("div");
+                        
+                        humanTextCont.classList.add("humanText");
+                        hContent.classList.add("Hcontent");
+
+                        hContent.textContent = j;
+                        
+                        humanTextCont.appendChild(hContent);
+
+                        chatArea.appendChild(humanTextCont);
+
+                        // bot response text rendering
+                        let response = document.createElement("div");
+                        let content = document.createElement("div");
+
+                        response.classList.add("response");
+
+                        chatArea.appendChild(response);
+                        content.classList.add("content");
+                        content.innerHTML = JSON.parse(i.chat)[j];
+                        response.appendChild(content);
+                        chatArea.scrollTop = chatArea.scrollHeight;
+                    }
+                }
+            }
+            catch(error) {
+                console.log("Unexpected error: " + error)
+            }
+        }
+        // call auto retieval
+        await retrieve_chat();
+
+        // clear current chat from UI
+        clearChat.addEventListener("click", async () => {
+            try {
+                let r = await fetch("/clear_chat");
+                let d = await r.json();
+                console.log(d.msg)
+                chatArea.innerHTML = "";
+            }
+            catch(error) {
+                console.log("Unexpected error: " + stringify(error))
+            }
+        })
+
+        // what happens after midnight
+        if (Date.now() == Number(localStorage.getItem("midnight"))) {
+            localStorage.removeItem("midnight");
+            localStorage.removeItem("expanded");
+            await clear_memory();
+        }
+
+        // setting up midnight deadline timer
+        let currentHr = new Date().getHours();
+        let midnight = 24-currentHr;
+        let midnightInUnix = Date.now() + (midnight*3600*1000);
+        if (!localStorage.getItem("midnight")) {
+            localStorage.setItem("midnight", midnightInUnix);
+        }
+
+        // this function clears bot memory
+        async function clear_memory() {
+            try {
+                let r = await fetch("/clear_memory");
+                let d = await r.json();
+                console.log(d.msg)
+            }
+            catch(error) {
+                console.log("Unexpected error: " + stringify(error))
+            }
+        }
+
+        // console.log(currentHr, midnightInUnix, Date.now());
 
         hamburger.addEventListener("click", () => {
             if (sideBar.style.left == "-100%") {
@@ -254,6 +339,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (profile.classList.contains("show")) {
                 profile.classList.remove("show");
             }
+            sideBar.style.left = "-100%";
         })
 
         profileBtn.addEventListener("click", () => {
@@ -268,10 +354,34 @@ document.addEventListener("DOMContentLoaded", () => {
         searchForm.addEventListener("submit", async (e) => {
             e.preventDefault();
 
-            // let form = Object.fromEntries(new FormData(searchForm));
             let form = new FormData(searchForm);
             let q = form.get("q");
+
+            // human text rendering
+            let hContent = document.createElement("div");
+            let humanTextCont = document.createElement("div");
+            
+            humanTextCont.classList.add("humanText");
+            hContent.classList.add("Hcontent");
+
+            hContent.textContent = searchInput.value;
+            
+            humanTextCont.appendChild(hContent);
+
+            chatArea.appendChild(humanTextCont);
             searchInput.value = "";
+
+            // rendering bot response text
+            let response = document.createElement("div");
+            let loaderGif = document.createElement("img");
+            let content = document.createElement("div");
+
+            response.classList.add("response");
+            loaderGif.src = "static/gif/loading2.gif";
+
+            response.appendChild(loaderGif);
+            chatArea.appendChild(response);
+            chatArea.scrollTop = chatArea.scrollHeight;
 
             try {
                 r = await fetch("/", {
@@ -282,14 +392,24 @@ document.addEventListener("DOMContentLoaded", () => {
                     body: JSON.stringify({q})
                 })
                 let data = await r.json();
-                console.log(data.msg);
+                // console.log(data.msg);
 
-                llm_msg.innerHTML = data.msg;
-
-            } catch(error) {
+                setTimeout(() => {
+                    loaderGif.style.display = "none";
+                    content.classList.add("content");
+                    content.innerHTML = data.msg;
+                    response.appendChild(content);
+                    chatArea.scrollTop = chatArea.scrollHeight;
+                }, 2000)
+            } 
+            catch(error) {
                 console.log("Unexpected error => " + error)
                 alert(`Unexpected Error: ${error}`)
             }
+        })
+
+        sideBar.addEventListener("click", (e) => {
+            e.stopImmediatePropagation();
         })
     }
 })

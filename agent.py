@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq
+from langchain_fireworks import ChatFireworks
 from langchain_tavily import TavilySearch
 from langgraph.graph import StateGraph, START, END
 from langgraph.graph.message import add_messages
@@ -51,6 +52,7 @@ tavily = TavilySearch(max_results=2)
 all_tools = tools + [tavily]
 
 llm = ChatGroq(model="openai/gpt-oss-120b").bind_tools(all_tools)
+# llm = ChatFireworks(model="accounts/fireworks/models/gpt-oss-120b").bind_tools(all_tools)
 
 # memory = MemorySaver()
 
@@ -76,6 +78,7 @@ def bot(state: State):
             5. Respond in plane html (do not include styling to it).
             6. Once in a while try to shift conversations to crypto related topics when it starts going off.
             7. Do not share airdrop/trading etc alphas with users, always redirect them to WhatApp when they wanna make enquiries about airdrop alphas, trading alphas etc.
+            8. Your memory clears after midnight, everyday.
             """
         ),
         *state["messages"]
@@ -106,5 +109,5 @@ async def main(q: str, username: str):
         r = await graph.ainvoke({"messages": [{"role": "user", "content": q}]}, config=config)
         return r["messages"][-1].content
 
-# print(asyncio.run(main("bitcoin price", "grindpa")))
+# print(asyncio.run(main("hey", "grindpa")))
 # print(f"using db: {db_path}")
