@@ -515,6 +515,7 @@ main #toLogin {
 }
 .chat_grid .sideBar form + div:hover {
     background-color: rgba(255, 255, 255, 0.247);
+    color: crimson;
 }
 .chat_grid .sideBar form {
     text-align: center;
@@ -567,6 +568,9 @@ main #toLogin {
     width: 30px;
     height: 30px;
 }
+#search img:nth-child(2) {
+    display: none;
+}
 #index footer img {
     margin-bottom: 20px;
 }
@@ -577,4 +581,47 @@ main #toLogin {
     /* z-index: -2; */
     background-color: var(--bg-dark);
     outline: 0.5px solid gray;
+}
+
+/* styling for error 404 page */
+
+main .four_zero_four {
+    width: fit-content;
+    padding: 25px;
+    background-color: var(--bg-dark);
+    text-align: center;
+    color: white;
+    margin: auto;
+    margin-top: 10rem;
+    line-height: 1.4;
+    outline: 0.1px solid gray;
+    border-radius: 7px;
+}
+main .four_zero_four h2 {
+    margin-bottom: 15px;
+}
+main .four_zero_four div {
+    font-size: small;
+    color: lightgray;
+}
+main .four_zero_four button {
+    margin-top: 30px;
+    padding: 10px 30px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--brand-color-light);
+    color: white;
+    cursor: pointer;
+    transition: 0.25s;
+}
+main .four_zero_four button:hover {
+    background-color: var(--brand-color);
+}
+main .four_zero_four a {
+    text-decoration: none;
+}
+main .four_zero_four img {
+    margin-bottom: 20px;
+    width: 150px;
+    height: 150px;
 }

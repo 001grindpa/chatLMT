@@ -23,6 +23,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
             let formdata = Object.fromEntries(new FormData(form));
+            let new_form = new FormData(form);
+            let username = new_form.get("username");
+            // console.log(username);
 
             try {
                 let r = await fetch("/signup", {
@@ -43,7 +46,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                     setTimeout(() => redirectToLoginTxt.style.display = "block", 3000);
                     setTimeout(() => redirectToLogin.click(), 4500);
                 } else if (d.msg == "This account already exists, try loging in.") {
-                    return alert(`${d.msg}`)
+                    return alert(`${d.msg}`);
+                } else if (d.msg == `The username '${username}' is already claimed, try a different one.`) {
+                    return alert(`${d.msg}`);
                 }
             }
             catch(error) {
@@ -230,6 +235,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         const sideBar = body.querySelector(".chat_grid .sideBar");
         const hamburger = body.querySelector(".menuBar .left .hambugger");
         const clearChat = body.querySelector(".sideBar form + div");
+        const formBtnLoader = body.querySelector("#search img:nth-child(2)");
+        const formBtnLogo = body.querySelector("#search img:nth-child(1)");
+        const formBtn = body.querySelector("#search button");
 
         // aauto retrieve current chat history
         async function retrieve_chat() {
@@ -287,7 +295,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         })
 
         // what happens after midnight
-        if (Date.now() == Number(localStorage.getItem("midnight"))) {
+        if (Date.now() >= Number(localStorage.getItem("midnight"))) {
             localStorage.removeItem("midnight");
             localStorage.removeItem("expanded");
             await clear_memory();
@@ -300,6 +308,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (!localStorage.getItem("midnight")) {
             localStorage.setItem("midnight", midnightInUnix);
         }
+        console.log(localStorage.getItem("midnight"), Date.now());
 
         // this function clears bot memory
         async function clear_memory() {
@@ -316,7 +325,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // console.log(currentHr, midnightInUnix, Date.now());
 
         hamburger.addEventListener("click", () => {
-            if (sideBar.style.left == "-100%") {
+            if (sideBar.style.left < "-50%") {
                 sideBar.style.left = "0%";
             }
             else {
@@ -353,6 +362,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         searchForm.addEventListener("submit", async (e) => {
             e.preventDefault();
+            if ((searchInput.value).trim() == "") {
+                return alert(`Please insert a text first before attempting send.`)
+            }
+            formBtnLogo.style.display = "none";
+            formBtnLoader.style.display = "block";
+            formBtn.style.cursor = "progress";
+            formBtn.disabled = true;
 
             let form = new FormData(searchForm);
             let q = form.get("q");
@@ -400,6 +416,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                     content.innerHTML = data.msg;
                     response.appendChild(content);
                     chatArea.scrollTop = chatArea.scrollHeight;
+                    formBtnLogo.style.display = "block";
+                    formBtnLoader.style.display = "none";
+                    formBtn.style.cursor = "pointer";
+                    formBtn.disabled = false;
                 }, 2000)
             } 
             catch(error) {

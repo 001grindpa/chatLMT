@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <header>
+        <div class="menuBar">
+            <div class="left">
+                <img class="logo" src="{{ url_for('static', filename='images/lmt_no_tagline.png') }}" alt="LMT_logo">
+                <div class="title">
+                    <div>ChatLMT</div>
+                    <div>Community Assistant</div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="four_zero_four">
+            <h1>Error 404</h1>
+            <h2>Page Not Found</h2>
+            <img src="{{ url_for('static', filename='gif/Error 404.gif') }}" alt="404_error_gif">
+            <div>Oops! The page you're looking for doesn't exist.</div>
+            <a href="/"><button>Go Home</button></a>
+        </div>
+    </main>
+
+{% endblock %}

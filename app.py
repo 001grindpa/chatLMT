@@ -62,6 +62,8 @@ def signup():
         for data in userData:
             if data["username"] == username and data["password"] == password:
                 return jsonify({"msg": "This account already exists, try loging in."})
+            elif data["username"] == username:
+                return jsonify({"msg": f"The username '{username}' is already claimed, try a different one."})
             
         # session["username"] = username
         # session["password"] = password
@@ -75,6 +77,14 @@ def signup():
 @app.route("/signup_error")
 def signup_error():
     return render_template("signupError.html", page="signup_error")
+
+@app.route("/redirected")
+def redirected():
+    return render_template("not_found.html", page="not_found")
+
+@app.errorhandler(404)
+def error(e):
+    return redirect("/redirected")
 
 @app.route("/check_password")
 def password_checker():
@@ -105,6 +115,8 @@ def login():
 
 @app.route("/logout", methods=["GET", "POST"])
 def logout():
+    # session.pop("username", None)
+    # session.pop("password", None)
     session["username"] = None
     session["password"] = None
     return redirect("/login")
