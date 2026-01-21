@@ -477,7 +477,7 @@ main #toLogin {
     grid-area: first;
     padding-top: 100px;
     position: fixed;
-    background-color: var(--bg-dark);
+    background-color: gray;
     height: 50rem;
     outline: 0.4px solid gray;
     line-height: 4;
