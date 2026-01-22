@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
     if (document.body.id === "signup") {
         const body = document.querySelector("body");
+        const pageBody = body.querySelector(".pageBody");
         const profileBtn = body.querySelector(".right .profile");
         const profile = body.querySelector(".statusText");
         const main = body.querySelector("main");
@@ -18,6 +19,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         const redirectToLogin = body.querySelector(".successCont form input");
         const successGif = body.querySelector(".signSuccess .imgs img:nth-child(1)");
         const successImg = body.querySelector(".signSuccess .imgs img:nth-child(2)");
+        const pageLoader = body.querySelector(".pageLoader");
+
+        // page loading logic
+        pageBody.style.display = "none";
+        window.addEventListener("load", () => {
+            pageLoader.style.display = "none";
+            pageBody.style.display = "block";
+        })
 
 
         form.addEventListener("submit", async (e) => {
@@ -162,6 +171,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     }
     else if (document.body.id == "login") {
+        const pageBody = document.querySelector(".pageBody");
         const eye = document.querySelector(".signup form .field img");
         const passwordInput = document.querySelector(".signup form .field .password");
         const profileBtn = document.querySelector(".right .profile");
@@ -169,6 +179,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         const main = document.querySelector("main");
         const form = document.querySelector(".signup form");
         const toLoginBtn = document.querySelector("main #toLogin button");
+        const pageLoader = document.querySelector(".pageLoader");
+
+        // page loading logic
+        pageBody.style.display = "none";
+
+        window.addEventListener("load", () => {
+            pageLoader.style.display = "none";
+            pageBody.style.display = "block";
+        })
         
         // form.style.color = "red";
 
@@ -225,6 +244,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
     else if (document.body.id == "index") {
         const body = document.querySelector("body");
+        const pageBody = document.querySelector(".pageBody");
         const chatCont = document.querySelector(".chatCont");
         const chatArea = body.querySelector(".chatArea");
         const searchForm = body.querySelector("#search");
@@ -238,8 +258,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         const formBtnLoader = body.querySelector("#search img:nth-child(2)");
         const formBtnLogo = body.querySelector("#search img:nth-child(1)");
         const formBtn = body.querySelector("#search button");
+        const pageLoader = document.querySelector(".pageLoader");
 
-        // aauto retrieve current chat history
+        // page loading logic
+        pageBody.style.display = "none";
+
+        window.addEventListener("load", () => {
+            pageLoader.style.display = "none";
+            pageBody.style.display = "block";
+        })
+
+        // auto retrieve current chat history
         async function retrieve_chat() {
             try {
                 let r = await fetch("/get_chat");

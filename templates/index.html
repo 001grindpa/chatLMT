@@ -2,6 +2,8 @@
 
 {% block body %}
 
+    <img class="pageLoader" src="{{ url_for('static', filename='gif/Loading6.gif') }}" alt="page_oader_gif">
+    <div class="pageBody">
         <div class="statusText">
             <div><a href="/profile">Profile</a></div>
             <form action="/logout" method="get">
@@ -42,7 +44,7 @@
                     <div class="chatArea">
                         <div class="humanText">
                             <!-- <div class="Hcontent">Lorem error.</div> -->
-                             <!-- human texts are appended here after generated -->
+                            <!-- human texts are appended here after generated -->
                         </div>
                         <div class="response">
                             <!-- <img src="{{ url_for('static', filename='gif/loading2.gif') }}" alt="loader_gif"> -->
@@ -66,5 +68,7 @@
             </div>
             <div class="sideNote">Another Masterpiece</div>
         </footer>
+    </div>
+        
 
 {% endblock %}

@@ -49,11 +49,13 @@ async def index():
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     if request.method == "POST":
-        username = request.get_json().get("username")
+        raw_username = request.get_json().get("username")
         password = request.get_json().get("password")
         first_name = request.get_json().get("first_name")
         surname = request.get_json().get("surname")
         e_mail = request.get_json().get("e_mail")
+        # convert username to lowercase
+        username = raw_username.lower()
 
         if session.get("validity") == False:
             return redirect("/signup_error")
@@ -100,8 +102,10 @@ def password_checker():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        username = request.get_json().get("username")
+        raw_username = request.get_json().get("username")
         password = request.get_json().get("password")
+        # convert username to lowercase
+        username = raw_username.lower()
 
         userData = db.execute("SELECT * FROM userData WHERE username = ?", username)
         for data in userData:
