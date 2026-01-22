@@ -6,7 +6,6 @@ from langchain_tavily import TavilySearch
 from langgraph.graph import StateGraph, START, END
 from langgraph.graph.message import add_messages
 from langgraph.prebuilt import ToolNode, tools_condition
-from IPython.display import Image, display
 from typing import TypedDict
 from typing_extensions import Annotated
 # from langgraph.checkpoint.memory import MemorySaver

@@ -11,3 +11,4 @@ watchdog
 cs50
 langgraph-checkpoint-sqlite
 langchain_fireworks
+aiosqlite
