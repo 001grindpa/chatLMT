@@ -63,9 +63,9 @@ def signup():
         userData = db.execute("SELECT * FROM userData WHERE username = ?", username)
         for data in userData:
             if data["username"] == username and data["password"] == password:
-                return jsonify({"msg": "This account already exists, try loging in."})
+                return jsonify({"msg": "This account already exists, try loging in."}), 409
             elif data["username"] == username:
-                return jsonify({"msg": f"The username '{username}' is already claimed, try a different one."})
+                return jsonify({"msg": f"The username '{username}' is already claimed, try a different one."}), 409
             
         # session["username"] = username
         # session["password"] = password
@@ -114,7 +114,7 @@ def login():
                 session["password"] = password
                 # return redirect("/")
                 return jsonify({"msg": "login"})
-        return jsonify({"msg": "This account does not exist, please check again or sign up."})
+        return jsonify({"msg": "This account does not exist, please check again or sign up."}), 409
     return render_template("login.html", page="login")
 
 @app.route("/logout", methods=["GET", "POST"])
