@@ -635,3 +635,42 @@ main .four_zero_four img {
     width: 150px;
     height: 150px;
 }
+
+/* css for profile page */
+#profile main form {
+    display: grid;
+    /* outline: 1px solid red; */
+    width: fit-content;
+    margin: auto;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10rem;
+}
+#profile main form div {
+    background-color: var(--bg-dark);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+#profile main form input {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+#profile main form button {
+    width: fit-content;
+    margin: auto;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 15px;
+    background-color: var(--brand-color-light);
+    cursor: pointer;
+    color: white;
+    transition: 0.25s;
+}
+#profile main form button:hover {
+    background-color: var(--brand-color);
+    padding: 12px 32px;
+}

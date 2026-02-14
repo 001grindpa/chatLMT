@@ -461,4 +461,16 @@ document.addEventListener("DOMContentLoaded", async () => {
             e.stopImmediatePropagation();
         })
     }
+    else if (document.body.id == "profile") {
+        const pageLoader = document.querySelector(".pageLoader");
+        const pageBody = document.querySelector(".pageBody");
+
+        // page loading logic
+        pageBody.style.display = "none";
+
+        window.addEventListener("load", () => {
+            pageLoader.style.display = "none";
+            pageBody.style.display = "block";
+        })
+    }
 })

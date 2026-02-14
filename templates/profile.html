@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <img class="pageLoader" src="{{ url_for('static', filename='gif/Loading6.gif') }}" alt="page_oader_gif">
+    <div class="pageBody">
+        <div class="statusText">you're currently not logged in</div>
+        <header>
+            <div class="menuBar">
+                <div class="left">
+                    <img class="logo" src="{{ url_for('static', filename='images/lmt_no_tagline.png') }}" alt="LMT_logo">
+                    <div class="title">
+                        <div>ChatLMT</div>
+                        <div>Community Assistant</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+            <form action="/profile" method="post">
+                <div>Edit Profile</div>
+                <input name="first_name" placeholder="First Name" type="text" autocomplete="off" value="{{ first_name }}">
+                <input name="surname" placeholder="Surname" type="text" autocomplete="off" value="{{ surname }}">
+                <input name="username" placeholder="Username" type="text" autocomplete="off" value="{{ username }}">
+                <input name="e_mail" placeholder="E Mail" type="password" autocomplete="off" value="{{ password }}">
+                <button>Done</button>
+            </form>
+        </main>
+    </div>
+
+{% endblock %}

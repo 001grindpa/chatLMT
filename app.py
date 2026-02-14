@@ -25,13 +25,18 @@ def globals():
     if session.get("username"):
         userData = db.execute("SELECT * FROM userData WHERE username = ?", session.get("username"))
         for data in userData:
-            if data.get("e_mail"):
-                email = data.get("e_mail")
-        else:
-            email = "None"
+            email = data.get("e_mail")
+            first_name = data.get("name")
+            surname = data.get("surname")
+            username = data.get("username")
+            password = data.get("password")
     else:
-            email = "None"
-    return dict(email=email)
+        email = "None"
+        first_name = "None"
+        surname = "None"
+        username = "None"
+        password = "None"
+    return dict(email=email, first_name=first_name, surname=surname, username=username, password=password)
 
 @app.route("/", methods=["GET", "POST"])
 async def index():
@@ -124,6 +129,10 @@ def logout():
     session["username"] = None
     session["password"] = None
     return redirect("/login")
+
+@app.route("/profile", methods=["GET", "POST"])
+def profile():
+    return render_template("profile.html", page="profile")
 
 @app.route("/get_chat")
 def chat_history():
