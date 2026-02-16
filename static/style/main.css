@@ -639,19 +639,34 @@ main .four_zero_four img {
 /* css for profile page */
 #profile main form {
     display: grid;
+    position: relative;
     /* outline: 1px solid red; */
+    background-color: var(--brand-color);
     width: fit-content;
     margin: auto;
+    margin-top: 10rem;
     justify-content: center;
     gap: 10px;
-    margin-top: 10rem;
+    padding: 30px;
+    padding-bottom: 3.8rem;
+    border-radius: 10px;
+    color: white;
 }
-#profile main form div {
-    background-color: var(--bg-dark);
+#profile main form .edit {
+    background-color: black;
     color: white;
     text-align: center;
     padding: 10px;
     margin-bottom: 10px;
+    cursor: pointer;
+    transition: 0.25s;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#profile main form .edit:hover {
+    background-color: var(--bg-dark);
 }
 #profile main form input {
     padding: 10px;
@@ -660,17 +675,64 @@ main .four_zero_four img {
     outline: none;
 }
 #profile main form button {
+    position: absolute;
     width: fit-content;
     margin: auto;
     padding: 10px 30px;
     border: none;
     border-radius: 15px;
     background-color: var(--brand-color-light);
+    outline: 1px solid var(--bg-dark);
     cursor: pointer;
     color: white;
     transition: 0.25s;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
 }
 #profile main form button:hover {
-    background-color: var(--brand-color);
     padding: 12px 32px;
+}
+#profile main form img {
+    width: 25px;
+    height: 25px;
+    right: 3px;
+    bottom: 63px;
+    cursor: pointer;
+    position: absolute;
+}
+#profile main .alertCont {
+    position: fixed;
+    top: 4rem;
+    right: 0;
+    z-index: 10;
+}
+#profile main .alert {
+    color: white;
+    background-color: var(--brand-color-faded);
+    padding: 10px 20px;
+    width: fit-content;
+    margin-right: -200px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    opacity: 0;
+}
+#profile main .alert.show {
+    animation: show forwards 0.5s;
+    opacity: 1;
+}
+@keyframes show {
+    to {
+        margin-right: 20px;
+    }
+}
+#profile main .alert.show.hide {
+    animation: hide forwards 1s;
+}
+@keyframes hide {
+    to {
+        margin-right: -500px;
+        opacity: 0;
+    }
 }

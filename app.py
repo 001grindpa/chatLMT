@@ -132,6 +132,42 @@ def logout():
 
 @app.route("/profile", methods=["GET", "POST"])
 def profile():
+    if request.method == "POST":
+        form_obj = request.get_json()
+        first_name = form_obj.get("first_name")
+        new_surname = form_obj.get("surname")
+        new_username = form_obj.get("username")
+
+        # check if all entry fields are filled and if username length is > 4
+        for i in form_obj:
+            if form_obj[i].strip() == "":
+                return jsonify({"msg": "Entry field can not be empty"})
+        if len(new_username) <= 4:
+            return jsonify({"msg": "Username should be more than 4 characters long"})
+
+        # check if user is changing username to an existing username
+        if new_username != session.get("username"):
+            usernames = db.execute("SELECT username FROM userData")
+            for username in usernames:
+                if username.get("username") == new_username:
+                    return jsonify({"msg": "This username already exists"})
+            pass
+        else:
+            pass
+        
+        # change user info or return "No information changed" if no changes detected
+        user = db.execute("SELECT name, surname, username FROM userData WHERE username = ?", session.get("username"))
+        for data in user:
+            name = data.get("name")
+            surname = data.get("surname")
+            username = data.get("username")
+
+            if name == first_name and surname == new_surname and username == new_username:
+                return jsonify({"msg": "No information changed"})
+        db.execute("UPDATE userData SET name = ?, surname = ?, username = ? WHERE username = ?", first_name, new_surname, new_username, session.get("username"))
+        session["username"] = new_username
+        return jsonify({"msg": "Profile updated successfully"})
+    
     return render_template("profile.html", page="profile")
 
 @app.route("/get_chat")

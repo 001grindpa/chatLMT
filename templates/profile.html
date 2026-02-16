@@ -17,12 +17,16 @@
             </div>
         </header>
         <main>
+            <div class="alertCont">
+                <div class="alert">test html</div>
+            </div>
             <form action="/profile" method="post">
-                <div>Edit Profile</div>
-                <input name="first_name" placeholder="First Name" type="text" autocomplete="off" value="{{ first_name }}">
-                <input name="surname" placeholder="Surname" type="text" autocomplete="off" value="{{ surname }}">
-                <input name="username" placeholder="Username" type="text" autocomplete="off" value="{{ username }}">
-                <input name="e_mail" placeholder="E Mail" type="password" autocomplete="off" value="{{ password }}">
+                <input disabled name="first_name" placeholder="First Name" type="text" autocomplete="off" value="{{ first_name }}">
+                <input disabled name="surname" placeholder="Surname" type="text" autocomplete="off" value="{{ surname }}">
+                <input disabled name="username" placeholder="Username" type="text" autocomplete="off" value="{{ username }}">
+                <input disabled name="password" placeholder="E Mail" type="password" autocomplete="off" value="{{ password }}">
+                <img src="{{ url_for('static', filename='images/openeye.png') }}" alt="eyes">
+                <div class="edit">Edit Profile</div>
                 <button>Done</button>
             </form>
         </main>

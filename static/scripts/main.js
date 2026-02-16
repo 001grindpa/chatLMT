@@ -462,8 +462,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         })
     }
     else if (document.body.id == "profile") {
+        const body = document.querySelector("body");
         const pageLoader = document.querySelector(".pageLoader");
         const pageBody = document.querySelector(".pageBody");
+        const form = document.querySelector("#profile form");
+        const done = form.querySelector("button");
+        const formInputs = form.querySelectorAll("input");
+        const editPfp = body.querySelector("#profile form .edit");
+        const view = form.querySelector("img");
+        const alertCont = body.querySelector("main .alertCont");
+        // const alert = alertCont.querySelector(".alert");
 
         // page loading logic
         pageBody.style.display = "none";
@@ -471,6 +479,65 @@ document.addEventListener("DOMContentLoaded", async () => {
         window.addEventListener("load", () => {
             pageLoader.style.display = "none";
             pageBody.style.display = "block";
+        })
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            const newForm = new FormData(form);
+            const formObj = Object.fromEntries(newForm);
+
+            try {
+                let r = await fetch("/profile", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify(formObj)
+                });
+                let d = await r.json();
+                console.log(d.msg);
+                let alert = document.createElement("div");
+                alert.classList.add("alert");
+                alertCont.appendChild(alert);
+
+                alert.textContent = d.msg;
+                if (d.msg == "No information changed" || d.msg == "Profile updated successfully") {
+                    if (d.msg == "Profile updated successfully") {
+                        alert.style.color = "lightgreen";
+                    }
+                    formInputs.forEach(el => el.disabled = true);
+                    editPfp.style.display = "block";
+                    done.style.display = "none";
+                }
+                else {
+                    alert.style.backgroundColor = "lightgray";
+                    alert.style.color = "red";
+                }
+                alert.classList.add("show");
+                setTimeout(() => alert.classList.add("hide"), 3000);
+                setTimeout(() => {
+                    alert.classList.remove("hide");
+                    alert.classList.remove("show");
+                    alertCont.removeChild(alert);
+                }, 4000);
+
+            } catch(err) {
+                console.error("Unexpected error: " + err);
+            }
+        })
+
+        editPfp.addEventListener("click", () => {
+            formInputs.forEach(el => {
+                (el.type != "password")?el.disabled = false: null;
+            });
+            editPfp.style.display = "none";
+            done.style.display = "block";
+        })
+
+        view.addEventListener("click", () => {
+            for (let el of formInputs) {
+                (el.type == "password" && el.name == "password")?(el.type = "text", view.src = "static/images/closedeye.png"): 
+                (el.type == "text" && el.name == "password")?(el.type = "password", view.src = "static/images/openeye.png"):null;
+            }
         })
     }
 })
