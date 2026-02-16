@@ -708,7 +708,7 @@ main .four_zero_four img {
     right: 0;
     z-index: 10;
 }
-#profile main .alert {
+#profile main .alertEl {
     color: white;
     background-color: var(--brand-color-faded);
     padding: 10px 20px;
@@ -718,19 +718,19 @@ main .four_zero_four img {
     border-radius: 10px;
     opacity: 0;
 }
-#profile main .alert.show {
-    animation: show forwards 0.5s;
+#profile main .alertEl.show_alert {
+    animation: show_alert 0.5s forwards;
     opacity: 1;
 }
-@keyframes show {
+@keyframes show_alert {
     to {
         margin-right: 20px;
     }
 }
-#profile main .alert.show.hide {
-    animation: hide forwards 1s;
+#profile main .alertEl.show_alert.hide_alert {
+    animation: hide_alert 1s forwards;
 }
-@keyframes hide {
+@keyframes hide_alert {
     to {
         margin-right: -500px;
         opacity: 0;

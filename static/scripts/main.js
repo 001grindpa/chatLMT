@@ -496,7 +496,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 let d = await r.json();
                 console.log(d.msg);
                 let alert = document.createElement("div");
-                alert.classList.add("alert");
+                alert.classList.add("alertEl");
                 alertCont.appendChild(alert);
 
                 alert.textContent = d.msg;
@@ -512,11 +512,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                     alert.style.backgroundColor = "lightgray";
                     alert.style.color = "red";
                 }
-                alert.classList.add("show");
-                setTimeout(() => alert.classList.add("hide"), 3000);
+                alert.classList.add("show_alert");
+                setTimeout(() => alert.classList.add("hide_alert"), 3000);
                 setTimeout(() => {
-                    alert.classList.remove("hide");
-                    alert.classList.remove("show");
+                    alert.classList.remove("hide_alert");
+                    alert.classList.remove("show_alert");
                     alertCont.removeChild(alert);
                 }, 4000);
 
