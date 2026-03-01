@@ -136,7 +136,8 @@ def profile():
         form_obj = request.get_json()
         first_name = form_obj.get("first_name")
         new_surname = form_obj.get("surname")
-        new_username = form_obj.get("username")
+        new_username = form_obj.get("username").lower()
+        print(new_username)
 
         # check if all entry fields are filled and if username length is > 4
         for i in form_obj:

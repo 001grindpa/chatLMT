@@ -31,12 +31,12 @@
         <main>
             <div class="chat_grid">
                 <div class="sideBar">
-                    <form action="/search">
-                        <input name="search" type="search" autocomplete="off" placeholder="Search">
-                        <img src="{{ url_for('static', filename='images/white-microscope.png') }}" alt="clear">
+                    <form action="https://google.com/search" method="get">
+                        <input name="q" type="search" autocomplete="off" placeholder="Search Google">
+                        <button><img src="{{ url_for('static', filename='images/white-microscope.png') }}" alt="clear"></button>
                     </form>
                     <div>
-                        <img src="{{ url_for('static', filename='images/clear.png') }}" alt="clear">
+                        <img class="search" src="{{ url_for('static', filename='images/clear.png') }}" alt="clear">
                         <div>Clear chat</div>
                     </div>
                 </div>

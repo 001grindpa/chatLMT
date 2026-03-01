@@ -260,6 +260,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const formBtn = body.querySelector("#search button");
         const pageLoader = document.querySelector(".pageLoader");
 
+
         // page loading logic
         pageBody.style.display = "none";
 

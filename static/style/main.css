@@ -532,7 +532,14 @@ main #toLogin {
     display: flex;
     align-items: center;
     margin-left: var(--shift-left);
-    margin-bottom: 10px;
+    margin-bottom: 40px;
+}
+.chat_grid .sideBar form button {
+    background-color: transparent;
+    border: none;
+}
+.chat_grid .sideBar form img {
+    cursor: pointer;
 }
 .chat_grid .sideBar form input {
     padding: 10px;
